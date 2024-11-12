@@ -41,8 +41,6 @@ class Graph {
                 int y = sc.nextInt();
                 int wt = sc.nextInt();
                 g.get(x).add(new Pair<>(y, wt));
-                // If undirected graph, uncomment the next line
-                // g.get(y).add(new Pair<>(x, wt));
             }
             sc.close();
         } catch (Exception e) {
@@ -92,6 +90,26 @@ class Graph {
         displayDistances(dist);
     }
 
+    public void runBellman(int s){
+
+        int[] dist = new int[v+1];
+        Arrays.fill(dist,Integer.MAX_VALUE);
+
+        dist[s] = 0;
+        for(int i=0;i<v-1;i++){
+            for(int j=0;j<v;j++){
+                int dist_u = dist[j];
+                for(Pair<Integer,Integer> child:g.get(j)){
+                    int v = child.getFirst();
+                    int wt = child.getSecond();
+                    if(dist_u + wt < dist[v]){
+                        dist[v] = dist_u + wt;
+                    }
+                }
+            }
+        }
+    }
+
     public void displayDistances(int[] dist) {
         System.out.println("Shortest distances from source:");
         for (int i = 0; i < dist.length; i++) {
@@ -105,5 +123,6 @@ public class dijkstra {
         Graph graph = new Graph("sortestPath/input.txt");
         graph.displayGraph();
         graph.runDijkstra(0);
+        //graph.runBellman(0);   
     }
 }
