@@ -66,7 +66,9 @@ class Graph {
         Arrays.fill(visit, 0);
         dist[source] = 0;
 
-        PriorityQueue<Pair<Integer, Integer>> pq = new PriorityQueue<>(Comparator.comparingInt(Pair::getFirst));
+       // PriorityQueue<Pair<Integer, Integer>> pq = new PriorityQueue<>(Comparator.comparingInt(Pair::getFirst));
+        PriorityQueue<Pair<Integer, Integer>> pq = new PriorityQueue<>((a, b) -> Integer.compare(a.getFirst(), b.getFirst()));
+
         pq.add(new Pair<>(0, source));
 
         while (!pq.isEmpty()) {
