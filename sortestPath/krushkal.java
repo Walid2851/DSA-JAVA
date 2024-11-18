@@ -44,7 +44,7 @@ class DSU {
 
     public void union(int a, int b) {
         a = find(a);
-        b = find(b); // Corrected: find the root of b, not a again
+        b = find(b); 
         if (a != b) {
             if (size[a] < size[b]) {
                 int temp = a;

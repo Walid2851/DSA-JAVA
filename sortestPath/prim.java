@@ -22,11 +22,10 @@ class Pair<U, V> {
 }
 
 class Graph {
-    private int v; // Number of vertices
-    private int e; // Number of edges
-    private List<List<Pair<Integer, Integer>>> g; // Adjacency list
+    private int v; 
+    private int e; 
+    private List<List<Pair<Integer, Integer>>> g; 
 
-    // Constructor to initialize graph from file
     Graph(String s) {
         try {
             File f = new File(s);
@@ -35,18 +34,15 @@ class Graph {
             e = sc.nextInt();
             g = new ArrayList<>(v + 1);
 
-            // Initialize adjacency list
             for (int i = 0; i <v; i++) {
                 g.add(new ArrayList<>());
             }
 
-            // Read edges
             for (int i = 0; i < e; i++) {
                 int x = sc.nextInt();
                 int y = sc.nextInt();
                 int wt = sc.nextInt();
                 g.get(x).add(new Pair<>(y, wt));
-               // g.get(y).add(new Pair<>(x, wt)); // Since the graph is undirected
             }
             sc.close();
         } catch (Exception e) {
@@ -54,7 +50,6 @@ class Graph {
         }
     }
 
-    // Display the graph
     public void displayGraph() {
         for (int i = 0; i < g.size(); i++) {
             System.out.print(i + " --> ");
@@ -65,7 +60,6 @@ class Graph {
         }
     }
 
-    // Prim's Algorithm for MST
     public void runPrim(int s) {
         int[] key = new int[v + 1]; // Min weight to connect to MST
         int[] parent = new int[v + 1]; // Parent array to store MST
@@ -119,6 +113,6 @@ public class prim {
     public static void main(String[] args) {
         Graph graph = new Graph("sortestPath/input.txt");
         graph.displayGraph();
-        graph.runPrim(0); // Start Prim's Algorithm from node 0
+        graph.runPrim(0);
     }
 }
