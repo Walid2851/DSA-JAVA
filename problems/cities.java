@@ -101,30 +101,5 @@ static class Pair<U, V> {
         Graph graph = new Graph(n, m, k);
         graph.runDijkstra(1);
     }
-    static Scanner in;
-		
-		static class Scanner
-		{
-			StringTokenizer st;
-			BufferedReader br;
-	 
-			public Scanner (InputStream s)
-			{
-				br=new BufferedReader(new InputStreamReader(s));
-			}
-	 
-			public String next() throws IOException
-			{
-				while(st==null || !st.hasMoreTokens())
-					st=new StringTokenizer(br.readLine());
-				return st.nextToken();
-			}
- 
-			public int nextInt() throws IOException
-			{
-				return Integer.parseInt(next());
-			}
-	 
-		}  
     
 }
