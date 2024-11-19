@@ -85,7 +85,7 @@ class Graph {
     public void displayGraph() {
         g.sort(Comparator.comparing(edge -> edge.getSecond().getSecond())); // Sort edges by weight
         System.out.println("Graph edges (format: x -> (y, weight)):");
-        for (Pair<Integer, Pair<Integer, Integer>> edge : g) {
+        for (var edge : g) {
             int x = edge.getFirst();
             int y = edge.getSecond().getFirst();
             int wt = edge.getSecond().getSecond();
@@ -102,7 +102,7 @@ class Graph {
         int total_cost = 0;
 
         System.out.println("Edges in the Minimum Spanning Tree (MST):");
-        for (Pair<Integer, Pair<Integer, Integer>> edge : g) {
+        for (var edge : g) {
             int x = edge.getFirst();
             int y = edge.getSecond().getFirst();
             int wt = edge.getSecond().getSecond();

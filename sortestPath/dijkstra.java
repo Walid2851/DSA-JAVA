@@ -41,6 +41,7 @@ class Graph {
                 int y = sc.nextInt();
                 int wt = sc.nextInt();
                 g.get(x).add(new Pair<>(y, wt));
+                g.get(y).add(new Pair<>(x, wt));
             }
             sc.close();
         } catch (Exception e) {
@@ -71,14 +72,14 @@ class Graph {
         pq.add(new Pair<>(0, source));
 
         while (!pq.isEmpty()) {
-            Pair<Integer, Integer> node = pq.poll();
+            var node = pq.poll();
             int u = node.getSecond();
             int dist_u = node.getFirst();
 
             if (visit[u] == 1) continue; 
             visit[u] = 1;
 
-            for (Pair<Integer, Integer> child : g.get(u)) {
+            for (var child : g.get(u)) {
                 int v = child.getFirst();
                 int wt = child.getSecond();
                 if (dist_u + wt < dist[v]) {
@@ -91,29 +92,58 @@ class Graph {
         displayDistances(dist);
     }
 
-    public void runBellman(int s){
-
-        int[] dist = new int[v+1];
-        Arrays.fill(dist,Integer.MAX_VALUE);
-
+ 
+    public void runBellman(int s) {
+        int[] dist = new int[v + 1];
+        Arrays.fill(dist, Integer.MAX_VALUE);
         dist[s] = 0;
-        for(int i=0;i<v-1;i++){
-            for(int j=0;j<v;j++){
+
+        // Relax edges (v-1) times
+        for (int i = 0; i < v - 1; i++) {
+            for (int j = 0; j < v; j++) {
                 int dist_u = dist[j];
-                for(Pair<Integer,Integer> child:g.get(j)){
-                    int v = child.getFirst();
+                if (dist_u == Integer.MAX_VALUE) continue; // Skip uninitialized distances
+                for (var child : g.get(j)) {
+                    int vertex = child.getFirst();
                     int wt = child.getSecond();
-                    if(dist_u + wt < dist[v]){
-                        dist[v] = dist_u + wt;
+                    if (dist_u + wt < dist[vertex]) {
+                        dist[vertex] = dist_u + wt;
                     }
                 }
             }
         }
+
+        // Detect cycles
+        boolean hasCycle = false;
+        for (int j = 0; j < v; j++) {
+            int dist_u = dist[j];
+            if (dist_u == Integer.MAX_VALUE) continue;
+            for (Pair<Integer, Integer> child : g.get(j)) {
+                int vertex = child.getFirst();
+                int wt = child.getSecond();
+                if (dist_u + wt < dist[vertex]) {
+                    hasCycle = true;
+                    System.out.println("Graph contains a negative weight cycle!");
+                    return;
+                }
+            }
+        }
+
+        // Output shortest distances
+        System.out.println("Shortest distances from source " + s + ":");
+        for (int i = 0; i < v; i++) {
+            System.out.println("Vertex " + i + ": " + (dist[i] == Integer.MAX_VALUE ? "Infinity" : dist[i]));
+        }
+
+        if (!hasCycle) {
+            System.out.println("No negative weight cycle detected.");
+        }
     }
+
 
     public void displayDistances(int[] dist) {
         System.out.println("Shortest distances from source:");
-        for (int i = 0; i < dist.length; i++) {
+        for (int i = 0; i < dist.length-1; i++) {
             System.out.println("Node " + i + ": " + (dist[i] == Integer.MAX_VALUE ? "Infinity" : dist[i]));
         }
     }
@@ -123,7 +153,7 @@ public class dijkstra {
     public static void main(String[] args) {
         Graph graph = new Graph("sortestPath/input.txt");
         graph.displayGraph();
-        graph.runDijkstra(0);
-        //graph.runBellman(0);   
+        graph.runDijkstra(1);
+        graph.runBellman(0);   
     }
 }

@@ -31,3 +31,5 @@ replay_pid*
 
 # Ignore compiled Java class files
 *.class
+
+*.a.out
