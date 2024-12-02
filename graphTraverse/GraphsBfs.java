@@ -26,7 +26,6 @@ public class GraphsBfs{
                     visit[child]=1;
                     dist[child]=dist[curr_v]+1;
                 }
-                //private AMIO 
             }
         }
     }

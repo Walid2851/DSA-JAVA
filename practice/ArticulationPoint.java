@@ -34,7 +34,7 @@ public class ArticulationPoint {
         adj.get(u).add(v);
         adj.get(v).add(u);
     }
-
+ 
     // Function to find and print articulation points using DFS traversal
     public void findArticulationPoints() {
         for (int i = 0; i < V; i++) {
@@ -50,6 +50,11 @@ public class ArticulationPoint {
                 System.out.print(i + " ");
             }
         }
+        System.out.println();
+        for (int i = 0; i < V; i++) {
+            System.out.println( disc[i] + " " +low[i]);
+        }
+
     }
 
     // DFS function
@@ -87,17 +92,21 @@ public class ArticulationPoint {
 
     // Driver code
     public static void main(String[] args) {
-        int V = 7; // Number of vertices
+        int V = 11; // Number of vertices
         ArticulationPoint graph = new ArticulationPoint(V);
 
-        graph.addEdge(0, 1);
-        graph.addEdge(1, 2);
-        graph.addEdge(2, 0);
         graph.addEdge(1, 3);
-        graph.addEdge(3, 4);
-        // graph.addEdge(4, 5);
-        // graph.addEdge(5, 6);
-        // graph.addEdge(3, 5);
+        graph.addEdge(1, 5);
+        graph.addEdge(3, 9);
+        graph.addEdge(9, 8);
+        graph.addEdge(9, 4);
+        graph.addEdge(9, 2);
+        graph.addEdge(2, 6);
+        graph.addEdge(2, 7);
+        graph.addEdge(4, 7);
+        graph.addEdge(2, 5);
+        graph.addEdge(2, 4);
+
 
         graph.findArticulationPoints();
     }
