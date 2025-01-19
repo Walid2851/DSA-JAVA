@@ -1,24 +1,49 @@
 package DP;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class fibonacci {
 
-    public static int fib(int n,int dp[]){
+    // Memoization approach
+    static int fibMemo(int n, HashMap<Integer, Integer> memo) {
+        if (n < 2) return n;
 
+        if (memo.containsKey(n)) {
+            return memo.get(n);
+        }
 
-        if(n<2) return n;
-        if(dp[n] != -1) return dp[n];
-        return fib(n-1,dp) + fib(n-2,dp);
+        int result = fibMemo(n - 1, memo) + fibMemo(n - 2, memo);
+        memo.put(n, result);
+        return result;
     }
 
-    public static void main(String args[]){
-        final int N = 100005;
-        int dp[] = new int[N];
-        for(int i=0;i<N;i++)dp[i]=-1;
+    // Tabulation approach
+    static int fibTab(int n) {
+        if (n < 2) return n;
 
+        int[] dp = new int[n + 1]; 
+        dp[0] = 0;
+        dp[1] = 1;
+
+        for (int i = 2; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+
+        return dp[n];
+    }
+
+    public static void main(String[] args) {
+        HashMap<Integer, Integer> memo = new HashMap<>();
         Scanner sc = new Scanner(System.in);
-        int x = sc.nextInt();
-        System.out.println(fib(x,dp));
+
+        System.out.print("Enter a number: ");
+        int n = sc.nextInt();
+
+        int ansMemo = fibMemo(n, memo);
+        System.out.println("fibMemo: " + ansMemo);
+
+        int ansTab = fibTab(n);
+        System.out.println("fibTab: " + ansTab);
     }
 }
