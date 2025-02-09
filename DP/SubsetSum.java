@@ -43,10 +43,53 @@ public class SubsetSum {
     }
 
     public static void main(String[] args) {
-        int[] set = {3, 34, 4, 12, 5, 2};
-        int target = 9;
+        int[] set = {2,5,3,6};
+        int target = 10;
 
         int result = isSubsetSum(set, set.length, target);
         System.out.println("Is subset with sum " + target + " possible? " + (result == 1));
     }
 }
+
+// package DP;
+
+// import java.util.Arrays;
+
+// public class SubsetSum {
+//     private int[][] dp;
+
+//     private boolean func(int i, int sum, int[] nums) {
+//         if (sum == 0) return true; // If the sum is 0, we found a valid subset
+//         if (i < 0) return false;   // If no elements left, return false
+//         if (dp[i][sum] != -1) return dp[i][sum] == 1; // Memoized result
+
+//         // Not considering the current index
+//         boolean isPossible = func(i - 1, sum, nums);
+
+//         // Considering the current index
+//         if (sum >= nums[i]) {
+//             isPossible |= func(i - 1, sum - nums[i], nums);
+//         }
+
+//         dp[i][sum] = isPossible ? 1 : 0; // Store result in DP table
+//         return isPossible;
+//     }
+
+//     public boolean subsetSumExists(int[] nums, int sum) {
+//         dp = new int[nums.length][sum + 1];
+
+//         for (int[] row : dp) {
+//             Arrays.fill(row, -1); // Initialize DP table with -1
+//         }
+
+//         return func(nums.length - 1, sum, nums);
+//     }
+
+//     public static void main(String[] args) {
+//         SubsetSum ss = new SubsetSum();
+//         int[] nums = {1, 3, 4};
+//         int sum = 5;
+//         boolean ans = ss.subsetSumExists(nums, sum);
+//         System.out.println("Subset sum exists? " + ans);
+//     }
+// }
